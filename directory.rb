@@ -39,6 +39,26 @@ def print(students)
         puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
 end
+
+def while_print(students)
+    count = 0
+    while count != students.length do
+        students.each do |student|
+            puts "#{student[:name]}"
+            count += 1
+        end
+    end
+end
+
+def print_begins_D(students)
+    d = students.select {|name| name[:name].start_with?('d') }
+    puts d
+end
+def less_than_12(students)
+    twelve = students.select { |name| name[:name].length < 12 }
+    puts twelve
+end
+
 def print_footer(students)
     puts "overall we have #{students.count} great students"
 end
@@ -46,4 +66,6 @@ end
 students = input_students
 print_header
 print(students)
+while_print(students)
 print_footer(students)
+less_than_12(students)
