@@ -1,4 +1,4 @@
-def input_students
+def input_students(students)
   puts "would you like to enter students"
   answer = gets.chomp
   no_students = false
@@ -9,7 +9,7 @@ def input_students
   end
   puts "Please enter the names of the students"
   
-  students = []
+  students = students
 
   name = gets.chomp
   if name == " "
@@ -125,10 +125,28 @@ def print_footer(students)
     end
 end
 
-students = input_students
-print_header(students)
-print(students)
-feb_cohort(students)
-# while_print(students)
-print_footer(students)
-# less_than_12(students)
+def interactive_menu
+    students = []
+    while true do
+        puts "Select: \n 1. input students\n 2. show students\n 3. 9. Exit"
+        selcetion = gets.chomp
+        case selcetion
+        when "1"
+            input_students(students)
+        when "2"
+            print_header(students)
+            print(students)
+            # feb_cohort(students)
+            # while_print(students)
+            print_footer(students)
+            # less_than_12(students)
+        when "9"
+            exit
+        else
+            "Sorry didnt understand"
+        end
+    end
+end
+
+interactive_menu
+
