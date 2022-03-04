@@ -1,17 +1,58 @@
 def input_students
+  puts "would you like to enter students"
+  answer = gets.chomp
+  no_students = false
+  if answer == "no"
+    puts "Ok no students to enter"
+    no_students = true
+    return no_students
+  end
   puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
-
+  
   students = []
 
   name = gets.chomp
-
-  while !name.empty? do
-
-    students << {name: name, cohort: :november}
-    puts "now we have #{students.count} students"
-
-    name = gets.chomp
+  if name == " "
+    name += 'unknown'
+  end
+  puts "please enter cohort"
+  cohort = gets.chomp
+  if cohort == ""
+    cohort += "unknown"
+  end
+  puts "please enter height"
+  height = gets.chomp
+  if height == ""
+    height += "unknown"
+  end
+  while true do
+    students << {name: name, cohort: cohort, height: height}
+    if students.length == 1
+        puts "now we have 1 student"
+    else
+        puts "now we have #{students.count} students"
+    end
+    puts "would you like to enter more students"
+    decision = gets.chomp
+    if decision == "no"
+        break
+    else
+        puts "Please enter the names of the students"
+        name = gets.chomp
+        if name == " "
+            name += 'unknown'
+        end
+        puts "please enter cohort"
+        cohort = gets.chomp
+        if cohort == ""
+            cohort += "unknown"
+        end
+        puts "please enter height"
+        height = gets.chomp
+        if height == ""
+            height += "unknown"
+        end
+    end
   end
 
   return students
@@ -30,42 +71,64 @@ end
 #     {name: "Joffrey Baratheon", cohort: :november},
 #     {name: "Norman Bates", cohort: :november}
 # ]
-def print_header
-    puts"The students of Villains Academy"
-    puts "-------------"
-end
-def print(students)
-    students.each_with_index do |student, index|
-        puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+def print_header(students)
+    if students.length > 0
+        puts"The students of Villains Academy"
+        puts "-------------"
+    else
+        puts "no data to display"
     end
 end
-
-def while_print(students)
-    count = 0
-    while count != students.length do
-        students.each do |student|
-            puts "#{student[:name]}"
-            count += 1
+def print(students)
+    if students.length > 0
+        students.each_with_index do |student, index|
+            puts "#{index + 1}. #{student[:name]} (cohort = #{student[:cohort]}, height = #{student[:height]})"
         end
     end
 end
 
+def while_print(students)
+    if students.length > 0
+        count = 0
+        while count != students.length do
+            students.each do |student|
+                puts "#{student[:name]}".center(20)
+                count += 1
+            end
+        end
+    end
+end
+
+def feb_cohort(students)
+    if students.length > 0
+        feb = students.select{ |student| student[:cohort] == "feb" }
+        puts feb 
+    end
+end
+
 def print_begins_D(students)
-    d = students.select {|name| name[:name].start_with?('d') }
-    puts d
+    if students == false
+        d = students.select {|name| name[:name].start_with?('d') }
+        puts d
+    end
 end
 def less_than_12(students)
-    twelve = students.select { |name| name[:name].length < 12 }
-    puts twelve
+    if students == false
+        twelve = students.select { |name| name[:name].length < 12 }
+        puts twelve
+    end
 end
 
 def print_footer(students)
-    puts "overall we have #{students.count} great students"
+    if students.length > 0
+      puts "overall we have #{students.count} great students"
+    end
 end
 
 students = input_students
-print_header
+print_header(students)
 print(students)
-while_print(students)
+feb_cohort(students)
+# while_print(students)
 print_footer(students)
-less_than_12(students)
+# less_than_12(students)
